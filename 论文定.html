@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>健身营养计算器</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>健身营养计算器</h2>
+        <label for="weight">体重 (kg):</label>
+        <input type="number" id="weight" placeholder="请输入您的体重">
+        
+        <label for="dayType">选择日类型:</label>
+        <select id="dayType">
+            <option value="high">高碳日 (胸+二头+腹)</option>
+            <option value="medium">中碳日 (背+三头 或 腿+肩)</option>
+            <option value="low">低碳日 (有氧)</option>
+        </select>
+        
+        <button onclick="calculate()">计算</button>
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculate() {
+            var weight = document.getElementById('weight').value;
+            var dayType = document.getElementById('dayType').value;
+            var carbs, fat, protein;
+
+            protein = weight * 1.6;
+
+            switch (dayType) {
+                case 'high':
+                    carbs = weight * 2.3 * 7 * 0.5 / 2;
+                    fat = weight * 0.7 * 7 * 0.15 / 2;
+                    break;
+                case 'medium':
+                    carbs = weight * 2.3 * 7 * (35 / 3) / 100;
+                    fat = weight * 0.7 * 7 * 35 / 3 / 100;
+                    break;
+                case 'low':
+                    carbs = weight * 2.3 * 7 * 0.15 / 2;
+                    fat = weight * 0.7 * 7 * 0.5 / 2;
+                    break;
+            }
+
+            var result = '碳水化合物: ' + carbs.toFixed(2) + 'g<br>' +
+                         '脂肪: ' + fat.toFixed(2) + 'g<br>' +
+                         '蛋白质: ' + protein.toFixed(2) + 'g';
+            document.getElementById('result').innerHTML = result;
+        }
+    </script>
+</body>
+</html>
